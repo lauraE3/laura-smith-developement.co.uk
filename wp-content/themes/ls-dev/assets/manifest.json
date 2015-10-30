@@ -2,7 +2,8 @@
   "dependencies": {
     "main.js": {
       "files": [
-        "scripts/main.js"
+        "scripts/main.js",
+        "scripts/FullHeightClass.js"
       ],
       "main": true
     },
@@ -17,6 +18,6 @@
     }
   },
   "config": {
-    "devUrl": "http://example.dev"
+    "devUrl": "http://localhost/laura-smith-developement.co.uk/"
   }
 }

@@ -19,6 +19,49 @@
     'common': {
       init: function() {
         // JavaScript to be fired on all pages
+        var FullSize = function() {
+          var SELECTOR = ".js-full-height";
+          var AT_LEAST_CLASS = "js-full-height-at-least";
+          var NOT_MOBILE_CLASS = "js-full-height-not-mobile";
+          var TOP_NAV_CLASS = ".navbar-fixed-top";
+          var height;
+          var newHeight;
+
+          this.init = function() {
+            $(window).bind("load resize orientationchange", scaleAll);
+          }
+
+          scaleAll = function() {
+            height = $(window).height();
+            $(TOP_NAV_CLASS).each(function() {
+              if($(this).is(":visible")) {
+                height -= $(this).height();
+              }
+            });
+
+            $(SELECTOR).each(function() {
+              if(shouldScale($(this))) {
+                $(this).css("height", height + "px");
+              }
+            });
+          }
+
+          shouldScale = function(ele) {
+            if(ele.attr("data-min-height") != undefined && ele.attr("data-min-height") > height) {
+              newHeight = parseInt(ele.attr("data-min-height"));
+            }
+
+            if(ele.hasClass(NOT_MOBILE_CLASS) && $(window).width() < 720) {
+              ele.css("height", "auto");
+              return false;
+            }
+            return true;
+          }
+        }
+
+        var fs = new FullSize();
+        fs.init();
+
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired
